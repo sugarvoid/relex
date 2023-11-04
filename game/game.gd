@@ -84,7 +84,7 @@ func check_mouse_click(mx,my) -> bool:
 func move_square() -> void:
 	
 	
-	var size = Vector2(500,500)
+	var size = Vector2(450,450)
 	var positionInArea: Vector2
 	positionInArea.x = (randi() % int(size.x)) - (size.x/2) + CENTER_POS.x
 	positionInArea.y = (randi() % int(size.y)) - (size.y/2) + CENTER_POS.y
