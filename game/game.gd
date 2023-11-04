@@ -22,6 +22,9 @@ var square: Rect2
 
 
 func _ready():
+	$HUD/LblTitle.visible = true
+	$HUD/LblTitle2.visible = true
+	
 	self.square = Rect2(marker2d.position.x, marker2d.position.y, 64.0, 64.0)
 	self.rng = RandomNumberGenerator.new()
 	marker2d.position = Vector2(50.0, 100.0)
@@ -51,18 +54,27 @@ func _process(delta):
 			pass
 
 func _input(event):
-   # Mouse in viewport coordinates.
-	if event is InputEventMouseButton:
-		if event.is_action_pressed('left_mouse'):
-			#print("Mouse Click at: ", event.position)
-			if check_mouse_click(event.position.x, event.position.y):
-				print("a square was clicked") 
-				self.stopwatch_reset()
-				$AudioStreamPlayer.play()
-				self.move_square()
-				self.update_score(20)
-				var my_random_number = self.rng.randf_range(0, 100.0)
-				print("moving to: ", my_random_number)
+	match self.game_state:
+		0:
+			if event is InputEventMouseButton:
+				if event.is_action_pressed('left_mouse'):
+					$HUD/LblTitle.visible = false
+					$HUD/LblTitle2.visible = false
+					self.game_state = 1
+		1:
+			if event is InputEventMouseButton:
+				if event.is_action_pressed('left_mouse'):
+					#print("Mouse Click at: ", event.position)
+					if check_mouse_click(event.position.x, event.position.y):
+						print("a square was clicked") 
+						self.stopwatch_reset()
+						$AudioStreamPlayer.play()
+						self.move_square()
+						self.update_score(20)
+						var my_random_number = self.rng.randf_range(0, 100.0)
+						print("moving to: ", my_random_number)
+		2:
+			pass
    
 func check_mouse_click(mx,my) -> bool:
 	return square.has_point(Vector2(mx,my))
