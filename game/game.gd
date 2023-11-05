@@ -48,12 +48,13 @@ func _start_game():
 	self.add_child(self.real_square)
 	self.real_square.name = "RealSquare"
 	self.real_square.connect("was_clicked", real_clicked)
+	self.real_square.modulate = Color("10d275")
 	
 	self.fake_square = preload("res://game/square.tscn").instantiate()
 	self.add_child(self.fake_square)
 	self.fake_square.name = "FakeSquare"
 	self.fake_square.connect("was_clicked", fake_clicked)
-	self.fake_square.modulate = Color("ff4417")
+	self.fake_square.modulate = Color("7f0622")
 	self.fake_square.position = Vector2(-100,-100)
 	
 	
@@ -65,14 +66,11 @@ func _start_game():
 	self.fake_square.show()
 
 func _draw():
-	draw_rect(Rect2(0, 0, 600, 40), Color.BLACK)
-	match self.game_state:
-		0:
-			draw_rect(Rect2(0, 30, 600.0, 570.0), Color.DARK_SLATE_GRAY)
-		1:
-			draw_rect(Rect2(0, 30, 600.0, 570.0), Color.DARK_SLATE_BLUE)
-		2:
-			draw_rect(Rect2(0, 30, 600.0, 570.0), Color.DARK_OLIVE_GREEN)
+	draw_rect(Rect2(0, 0, 600, 40), Color("2b2821"))
+	
+	draw_rect(Rect2(0, 30, 600.0, 570.0), Color("16171a"))
+	
+	
 
 func _process(delta):
 	match self.game_state:
@@ -163,7 +161,7 @@ func gameover() -> void:
 	var sum: float
 	for r in self.reaction_times:
 		sum += r
-	var average = snappedf(sum/len, 0.01)
+	var average = snappedf(sum/len, 0.001)
 	print("average time: ", average)
 	print(self.reaction_times)
 	self.real_square.position = Vector2(-100, -100)
@@ -171,5 +169,5 @@ func gameover() -> void:
 	self.game_state = 2 
 	
 	$HUD/LblGameOver.show()
-	$HUD/LblGameOver.set_text(str("Game Over \n\nHits: ", len, "\nAverage Time: " , average)) #%f" % [len, snappedf(average, 0.1)])
+	$HUD/LblGameOver.set_text(str("Game Over \n\nHits: ", len, "\nAverage Time: " , average))
 
