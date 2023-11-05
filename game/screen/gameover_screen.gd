@@ -8,7 +8,7 @@ func set_up() -> void:
 		sum += r
 	var average = snappedf(sum/len, 0.001)
 	
-	$LblGameOver2.set_text(str("Hits: ", len, "\nAverage Time: " , average))
+	$LblGameOver2.set_text(str("Clicks: ",PlayerData.clicks, "\nHits: ", len, "\nMissed: ", PlayerData.misses, "\nAverage Time: " , average))
 
 
 func _ready():

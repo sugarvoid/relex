@@ -46,13 +46,13 @@ func _start_game():
 	self.add_child(self.real_square)
 	self.real_square.name = "RealSquare"
 	self.real_square.connect("was_clicked", real_clicked)
-	self.real_square.modulate = Color("10d275")
+	self.real_square.set_color(Color("10d275"))
 
 	self.fake_square = preload("res://game/square.tscn").instantiate()
 	self.add_child(self.fake_square)
 	self.fake_square.name = "FakeSquare"
 	self.fake_square.connect("was_clicked", fake_clicked)
-	self.fake_square.modulate = Color("7f0622")
+	self.fake_square.set_color(Color("7f0622"))
 	self.fake_square.position = Vector2(-100,-100)
 
 
@@ -78,11 +78,8 @@ func move_square(sq: Square, time: float) -> void:
 	tween.tween_property(sq, "position", end_pos, time)
 	sq.is_moving = true
 	sq.hide()
-	tween.tween_callback(
-		func():
-			sq.is_moving=false
-			sq.show()
-			)
+	if tween != null:
+		tween.call_deferred("tween_callback", sq.reset)
 
 
 func update_score(num: int) -> void:
@@ -124,3 +121,9 @@ func gameover() -> void:
 	get_tree().change_scene_to_file("res://game/screen/gameover_screen.tscn")
 
 
+
+func _on_background_gui_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index==1:
+		PlayerData.player_clicked()
+		print("missed click")
+		PlayerData.misses += 1
