@@ -8,6 +8,9 @@ extends Node2D
 @onready var lbl_title: Label = $HUD/LblTitle
 @onready var lbl_title2: Label = $HUD/LblTitle2
 
+@onready var real_square: Square = get_node("RealSquare")
+@onready var fake_square: Square = get_node("FakeSquare")
+
 const CENTER_POS = Vector2(300.0,300.0)
 const SPAWN_AREA = Vector2(450,450)
 
@@ -18,8 +21,8 @@ var square_width = 64
 var square_x = 50.0
 var square_y = 100.0
 
-var real_square: Square
-var fake_square: Square
+
+
 
 var rng = RandomNumberGenerator.new()
 var player_score = 0
@@ -31,33 +34,32 @@ var square: Rect2
 
 
 func _ready():
-	self.real_square = preload("res://game/square.gd").new()
-	self.fake_square = preload("res://game/square.gd").new()
 	self.lbl_title.visible = true
 	self.lbl_title2.visible = true
+	
+	self.real_square.connect("was_clicked", real_clicked)
+	
 	
 	self.square = Rect2(real_marker.position.x, real_marker.position.y, 64.0, 64.0)
 	self.rng = RandomNumberGenerator.new()
 	self.real_marker.position = Vector2(50.0, 100.0)
 
 func _draw():
+	draw_rect(Rect2(0, 0, 600, 40), Color.BLACK)
 	match self.game_state:
 		0:
 			draw_rect(Rect2(0, 30, 600.0, 570.0), Color.DARK_SLATE_GRAY)
 		1:
 			draw_rect(Rect2(0, 30, 600.0, 570.0), Color.DARK_SLATE_BLUE)
-			draw_rect(real_square.body, real_square.color)
-			if !is_square_moving:
-				draw_rect(square, Color.SALMON)
 		2:
-			pass
+			draw_rect(Rect2(0, 30, 600.0, 570.0), Color.DARK_OLIVE_GREEN)
 
 func _process(delta):
 	match self.game_state:
 		0:
 			pass
 		1:
-			self.square.position = self.real_marker.position
+			
 			queue_redraw()
 			if !is_stopped:
 				time_elapsed += delta
@@ -74,38 +76,38 @@ func _input(event):
 					self.lbl_title2.visible = false
 					self.game_state = 1
 		1:
-			if event is InputEventMouseButton:
-				if event.is_action_pressed('left_mouse'):
-					if self.real_square.check_mouse_click(event.position.x, event.position.y):
-						print('real square clicked')
-					if check_mouse_click(event.position.x, event.position.y):
-						print("a square was clicked") 
-						self.stopwatch_reset()
-						self.fish_sound.play()
-						self.move_square(0.2)
-						self.update_score(20)
+			pass
+#			if event is InputEventMouseButton:
+#				if event.is_action_pressed('left_mouse'):
+#					if self.real_square.check_mouse_click(event.position.x, event.position.y):
+#						print('real square clicked')
+#						self.stopwatch_reset()
+#						self.fish_sound.play()
+#						self.move_square(self.real_square, 0.2)
+#						self.update_score(20)
 		2:
 			pass
    
-func check_mouse_click(mx,my) -> bool:
-	return square.has_point(Vector2(mx,my))
+#func check_mouse_click(mx,my) -> bool:
+#	return square.has_point(Vector2(mx,my))
 
 
-func move_square(time: float) -> void:
-	var starting_pos = self.real_marker.position
+func move_square(sq: Square, time: float) -> void:
+	var starting_pos = sq.position
 	var end_pos = self.get_position_in_area()
 	
 	print("Traveled: ", roundf(starting_pos.distance_to(end_pos)), " units")
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(self.real_marker, "position", end_pos, time)
-	self.is_square_moving = true
-	tween.tween_callback(func(): self.is_square_moving=false)
+	tween.tween_property(sq, "position", end_pos, time)
+	sq.is_moving = true
+	tween.tween_callback(func(): sq.is_moving=false)
+	
 
 
-func _on_Tween_tween_all_completed():
-	self.is_square_moving = false
-	pass # Replace with function body.
+#func _on_Tween_tween_all_completed():
+#	self.is_square_moving = false
+#	pass # Replace with function body.
 
 func update_score(num: int) -> void:
 	self.player_score += num
@@ -131,3 +133,10 @@ func stopwatch_stop() -> void:
 	
 func stopwatch_start() -> void:
 	is_stopped = false
+
+func real_clicked() -> void:
+	print('real square clicked')
+	self.stopwatch_reset()
+	self.fish_sound.play()
+	self.move_square(self.real_square, 0.2)
+	self.update_score(20)

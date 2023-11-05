@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfnaokk3memfg"]
+
+[ext_resource type="Script" path="res://game/square.gd" id="1_7j42y"]
+[ext_resource type="Texture2D" uid="uid://cikquvcx6klw" path="res://game/square.png" id="1_jmygf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5xgk"]
+size = Vector2(64, 64)
+
+[node name="Square" type="Node2D"]
+script = ExtResource("1_7j42y")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_y5xgk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jmygf")
+
+[connection signal="input_event" from="Hitbox" to="." method="_on_hitbox_input_event"]
