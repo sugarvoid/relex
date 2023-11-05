@@ -9,8 +9,8 @@ extends Node2D
 @onready var lbl_title: Label = $HUD/LblTitle
 @onready var lbl_title2: Label = $HUD/LblTitle2
 
-@onready var real_square: Square = get_node("RealSquare")
-@onready var fake_square: Square = get_node("FakeSquare")
+var real_square: Square
+var fake_square: Square
 
 const CENTER_POS = Vector2(300.0,300.0)
 const SPAWN_AREA = Vector2(450,450)
@@ -33,14 +33,36 @@ var reaction_times: Array
 
 
 func _ready():
+	
 	self.lbl_title.visible = true
 	self.lbl_title2.visible = true
-	self.real_square.hide()
-	self.fake_square.hide()
+	$HUD/LblGameOver.hide()
 	self.reaction_times = []
-	self.real_square.connect("was_clicked", real_clicked)
+	
 	self.game_time_left.connect("timeout", gameover)
 	self.rng = RandomNumberGenerator.new()
+	
+
+func _start_game():
+	self.real_square = preload("res://game/square.tscn").instantiate()
+	self.add_child(self.real_square)
+	self.real_square.name = "RealSquare"
+	self.real_square.connect("was_clicked", real_clicked)
+	
+	self.fake_square = preload("res://game/square.tscn").instantiate()
+	self.add_child(self.fake_square)
+	self.fake_square.name = "FakeSquare"
+	self.fake_square.connect("was_clicked", fake_clicked)
+	self.fake_square.modulate = Color("ff4417")
+	self.fake_square.position = Vector2(-100,-100)
+	
+	
+	
+	self.move_square(self.real_square, 0.0)
+	self.game_time_left.start(GAME_TIME)
+	
+	self.real_square.show()
+	self.fake_square.show()
 
 func _draw():
 	draw_rect(Rect2(0, 0, 600, 40), Color.BLACK)
@@ -73,10 +95,10 @@ func _input(event):
 				if event.is_action_pressed('left_mouse'):
 					self.lbl_title.visible = false
 					self.lbl_title2.visible = false
-					self.real_square.show()
-					self.fake_square.show()
+					
 					self.game_state = 1
-					self.game_time_left.start(GAME_TIME)
+					self._start_game()
+					
 		1:
 			pass
 		2:
@@ -133,6 +155,9 @@ func real_clicked() -> void:
 	self.move_square(self.real_square, 0.2)
 	self.update_score(1)
 
+func fake_clicked() -> void:
+	print('fake square clicked')
+
 func gameover() -> void:
 	var len = len(self.reaction_times)
 	var sum: float
@@ -144,9 +169,7 @@ func gameover() -> void:
 	self.real_square.position = Vector2(-100, -100)
 	self.fake_square.position = Vector2(-100, -100)
 	self.game_state = 2 
+	
+	$HUD/LblGameOver.show()
+	$HUD/LblGameOver.set_text(str("Game Over \n\nHits: ", len, "\nAverage Time: " , average)) #%f" % [len, snappedf(average, 0.1)])
 
-
-func _on_background_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.pressed and event.button_index==1:
-
-		print("clicked background")

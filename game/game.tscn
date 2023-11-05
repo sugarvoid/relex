@@ -1,12 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmdjh0n40h6yo"]
+[gd_scene load_steps=4 format=3 uid="uid://dmdjh0n40h6yo"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://bni76tul1j5fr" path="res://game/fish 6.wav" id="2"]
 [ext_resource type="FontFile" uid="uid://qsv1edqw6iir" path="res://game/Super Mario Bros. NES.ttf" id="2_4x077"]
-[ext_resource type="PackedScene" uid="uid://bfnaokk3memfg" path="res://game/square.tscn" id="5_veden"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_36y51"]
-size = Vector2(618, 626)
 
 [node name="game" type="Node2D"]
 script = ExtResource("1")
@@ -19,19 +15,29 @@ script = ExtResource("1")
 
 [node name="LblScore" type="Label" parent="HUD"]
 offset_left = 8.0
-offset_top = 5.0
+offset_top = -50.0
 offset_right = 120.0
-offset_bottom = 26.0
+offset_bottom = -29.0
 theme_override_fonts/font = ExtResource("2_4x077")
 text = "Score: "
 
 [node name="Label" type="Label" parent="HUD"]
 offset_left = 408.0
-offset_top = 5.0
+offset_top = -48.0
 offset_right = 488.0
-offset_bottom = 26.0
+offset_bottom = -27.0
 theme_override_fonts/font = ExtResource("2_4x077")
 text = "ccccc"
+
+[node name="Label2" type="Label" parent="HUD"]
+offset_left = 213.0
+offset_top = 5.0
+offset_right = 373.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("2_4x077")
+text = "relex game"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="LblTitle" type="Label" parent="HUD"]
 offset_left = 200.0
@@ -50,20 +56,16 @@ offset_bottom = 307.0
 theme_override_fonts/font = ExtResource("2_4x077")
 text = "Click to Play"
 
+[node name="LblGameOver" type="Label" parent="HUD"]
+offset_left = 203.0
+offset_top = 335.0
+offset_right = 411.0
+offset_bottom = 398.0
+theme_override_fonts/font = ExtResource("2_4x077")
+text = "line 1
+line 2
+line 3
+"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2")
-
-[node name="RealSquare" parent="." instance=ExtResource("5_veden")]
-position = Vector2(156, 460)
-
-[node name="FakeSquare" parent="." instance=ExtResource("5_veden")]
-modulate = Color(1, 0.266667, 0.0901961, 1)
-position = Vector2(308, 146)
-
-[node name="Background" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Background"]
-position = Vector2(299, 303)
-shape = SubResource("RectangleShape2D_36y51")
-
-[connection signal="input_event" from="Background" to="." method="_on_background_input_event"]
