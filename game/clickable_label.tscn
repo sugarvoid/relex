@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi40a5anqsmiw"]
+
+[ext_resource type="FontFile" uid="uid://qsv1edqw6iir" path="res://game/Super Mario Bros. NES.ttf" id="1_tr2o8"]
+[ext_resource type="Script" path="res://game/clickable_label.gd" id="2_l03fk"]
+
+[node name="ClickableLabel" type="Label"]
+offset_right = 208.0
+offset_bottom = 21.0
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("1_tr2o8")
+text = "Relex Game"
+horizontal_alignment = 1
+script = ExtResource("2_l03fk")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
