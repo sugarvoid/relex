@@ -99,7 +99,6 @@ func get_position_in_area() -> Vector2:
 
 
 func stopwatch_reset() -> void:
-	# possibly save time_elapsed somewhere else before overriding it
 	print("time elapsed:", snappedf(time_elapsed,0.01))
 	PlayerData.reaction_times.append(snappedf(time_elapsed,0.01))
 	time_elapsed = 0.0
@@ -122,15 +121,6 @@ func fake_clicked() -> void:
 	print('fake square clicked')
 
 func gameover() -> void:
-#	var len = len(self.reaction_times)
-#	var sum: float
-#	for r in self.reaction_times:
-#		sum += r
-#	var average = snappedf(sum/len, 0.001)
-#	print("average time: ", average)
-#	print(self.reaction_times)
-#	self.real_square.position = Vector2(-100, -100)
-#	self.fake_square.position = Vector2(-100, -100)
 	get_tree().change_scene_to_file("res://game/screen/gameover_screen.tscn")
 
 

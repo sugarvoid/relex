@@ -10,7 +10,6 @@ extends Node2D
 
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	self.lbl_back.hide()
 	self._connect_labels()
@@ -22,7 +21,7 @@ func _ready():
 func _connect_labels() -> void:
 	self.lbl_play.connect("was_clicked", _start_game)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
 	pass
 
