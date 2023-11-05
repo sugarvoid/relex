@@ -19,16 +19,18 @@ func _ready():
 
 
 func _process(delta):
-	if self.is_moving:
-		self.visible = false
+	pass
+#	if self.is_moving:
+#		self.visible = false
+#	else:
+#		self.visible = true
 
 func check_mouse_click(mx,my) -> bool:
 	return self.body.has_point(Vector2(mx,my))
 
 
 
-
 func _on_hitbox_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.pressed and event.button_index==1:
 		emit_signal("was_clicked")
 		print("click")

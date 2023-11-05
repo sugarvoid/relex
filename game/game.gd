@@ -1,8 +1,9 @@
 extends Node2D
 
 
-@onready var real_marker: Marker2D = get_node("RealMarker")
 @onready var react_timer: Timer = get_node("Timer")
+@onready var game_time_left: Timer = get_node("GameTime")
+
 @onready var fish_sound: AudioStreamPlayer = get_node("AudioStreamPlayer")
 
 @onready var lbl_title: Label = $HUD/LblTitle
@@ -13,6 +14,7 @@ extends Node2D
 
 const CENTER_POS = Vector2(300.0,300.0)
 const SPAWN_AREA = Vector2(450,450)
+const GAME_TIME: int = 20
 
 var game_state: int = 0 
 var is_square_moving: bool = false
@@ -21,28 +23,24 @@ var square_width = 64
 var square_x = 50.0
 var square_y = 100.0
 
-
-
-
 var rng = RandomNumberGenerator.new()
 var player_score = 0
-
 var time_elapsed: float = 0.0
 var is_stopped := false
 
-var square: Rect2
+var reaction_times: Array
+
 
 
 func _ready():
 	self.lbl_title.visible = true
 	self.lbl_title2.visible = true
-	
+	self.real_square.hide()
+	self.fake_square.hide()
+	self.reaction_times = []
 	self.real_square.connect("was_clicked", real_clicked)
-	
-	
-	self.square = Rect2(real_marker.position.x, real_marker.position.y, 64.0, 64.0)
+	self.game_time_left.connect("timeout", gameover)
 	self.rng = RandomNumberGenerator.new()
-	self.real_marker.position = Vector2(50.0, 100.0)
 
 func _draw():
 	draw_rect(Rect2(0, 0, 600, 40), Color.BLACK)
@@ -67,6 +65,7 @@ func _process(delta):
 		2:
 			pass
 
+
 func _input(event):
 	match self.game_state:
 		0:
@@ -74,23 +73,15 @@ func _input(event):
 				if event.is_action_pressed('left_mouse'):
 					self.lbl_title.visible = false
 					self.lbl_title2.visible = false
+					self.real_square.show()
+					self.fake_square.show()
 					self.game_state = 1
+					self.game_time_left.start(GAME_TIME)
 		1:
 			pass
-#			if event is InputEventMouseButton:
-#				if event.is_action_pressed('left_mouse'):
-#					if self.real_square.check_mouse_click(event.position.x, event.position.y):
-#						print('real square clicked')
-#						self.stopwatch_reset()
-#						self.fish_sound.play()
-#						self.move_square(self.real_square, 0.2)
-#						self.update_score(20)
 		2:
 			pass
    
-#func check_mouse_click(mx,my) -> bool:
-#	return square.has_point(Vector2(mx,my))
-
 
 func move_square(sq: Square, time: float) -> void:
 	var starting_pos = sq.position
@@ -101,13 +92,13 @@ func move_square(sq: Square, time: float) -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(sq, "position", end_pos, time)
 	sq.is_moving = true
-	tween.tween_callback(func(): sq.is_moving=false)
-	
+	sq.hide()
+	tween.tween_callback(
+		func(): 
+			sq.is_moving=false 
+			sq.show()
+			)
 
-
-#func _on_Tween_tween_all_completed():
-#	self.is_square_moving = false
-#	pass # Replace with function body.
 
 func update_score(num: int) -> void:
 	self.player_score += num
@@ -124,7 +115,8 @@ func get_position_in_area() -> Vector2:
 
 func stopwatch_reset() -> void:
 	# possibly save time_elapsed somewhere else before overriding it
-	print("time elapsed:", time_elapsed)
+	print("time elapsed:", snappedf(time_elapsed,0.01))
+	self.reaction_times.append(snappedf(time_elapsed,0.01))
 	time_elapsed = 0.0
 	is_stopped = false
 
@@ -139,4 +131,22 @@ func real_clicked() -> void:
 	self.stopwatch_reset()
 	self.fish_sound.play()
 	self.move_square(self.real_square, 0.2)
-	self.update_score(20)
+	self.update_score(1)
+
+func gameover() -> void:
+	var len = len(self.reaction_times)
+	var sum: float
+	for r in self.reaction_times:
+		sum += r
+	var average = snappedf(sum/len, 0.01)
+	print("average time: ", average)
+	print(self.reaction_times)
+	self.real_square.position = Vector2(-100, -100)
+	self.fake_square.position = Vector2(-100, -100)
+	self.game_state = 2 
+
+
+func _on_background_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index==1:
+
+		print("clicked background")
