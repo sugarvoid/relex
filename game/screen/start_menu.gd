@@ -12,6 +12,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.lbl_back.hide()
 	self._connect_labels()
 	for l in $Main.get_children():
 		l.set_colors(Color("fafdff"), Color("68aed4"))
@@ -27,3 +28,8 @@ func _process(delta):
 
 func _start_game() -> void:
 	get_tree().change_scene_to_file("res://game/game.tscn")
+
+
+func _on_back_was_clicked():
+	get_tree().change_scene_to_file("res://game/screen/start_menu.tscn")
+	$lbl_back.hide()

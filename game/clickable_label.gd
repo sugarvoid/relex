@@ -3,8 +3,8 @@ extends Label
 
 signal was_clicked
 
-var default_color: Color = Color.WHITE_SMOKE
-var hover_color: Color = Color.AQUA
+@export var default_color: Color = Color.WHITE_SMOKE
+@export var hover_color: Color = Color.AQUA
 
 func set_colors(default: Color, hover: Color) -> void:
 	self.default_color = default
