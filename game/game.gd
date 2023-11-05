@@ -6,9 +6,6 @@ extends Node2D
 
 @onready var fish_sound: AudioStreamPlayer = get_node("AudioStreamPlayer")
 
-@onready var lbl_title: Label = $HUD/LblTitle
-@onready var lbl_title2: Label = $HUD/LblTitle2
-
 var real_square: Square
 var fake_square: Square
 
@@ -28,21 +25,20 @@ var player_score = 0
 var time_elapsed: float = 0.0
 var is_stopped := false
 
-var reaction_times: Array
+
 
 
 
 func _ready():
 	for l in $HUD.get_children():
 		l.add_theme_color_override("font_color", Color("fafdff"))
-
-	self.lbl_title.visible = true
-	self.lbl_title2.visible = true
-	$HUD/LblGameOver.hide()
-	self.reaction_times = []
+		
+	PlayerData.reset_data()
 
 	self.game_time_left.connect("timeout", gameover)
 	self.rng = RandomNumberGenerator.new()
+	
+	self._start_game()
 
 
 func _start_game():
@@ -60,49 +56,16 @@ func _start_game():
 	self.fake_square.position = Vector2(-100,-100)
 
 
-
 	self.move_square(self.real_square, 0.0)
 	self.game_time_left.start(GAME_TIME)
 
 	self.real_square.show()
 	self.fake_square.show()
 
-func _draw():
-	#draw_rect(Rect2(0, 0, 600, 40), Color("2b2821"))
-
-	draw_rect(Rect2(0, 0, 600.0, 600.0), Color("16171a"))
-
-
 
 func _process(delta):
-	match self.game_state:
-		0:
-			pass
-		1:
-
-			queue_redraw()
-			if !is_stopped:
-				time_elapsed += delta
-				$HUD/Label.text = str(time_elapsed).pad_decimals(1)
-		2:
-			pass
-
-
-func _input(event):
-	match self.game_state:
-		0:
-			if event is InputEventMouseButton:
-				if event.is_action_pressed('left_mouse'):
-					self.lbl_title.visible = false
-					self.lbl_title2.visible = false
-
-					self.game_state = 1
-					self._start_game()
-
-		1:
-			pass
-		2:
-			pass
+	if !is_stopped:
+		time_elapsed += delta
 
 
 func move_square(sq: Square, time: float) -> void:
@@ -138,7 +101,7 @@ func get_position_in_area() -> Vector2:
 func stopwatch_reset() -> void:
 	# possibly save time_elapsed somewhere else before overriding it
 	print("time elapsed:", snappedf(time_elapsed,0.01))
-	self.reaction_times.append(snappedf(time_elapsed,0.01))
+	PlayerData.reaction_times.append(snappedf(time_elapsed,0.01))
 	time_elapsed = 0.0
 	is_stopped = false
 
@@ -159,17 +122,15 @@ func fake_clicked() -> void:
 	print('fake square clicked')
 
 func gameover() -> void:
-	var len = len(self.reaction_times)
-	var sum: float
-	for r in self.reaction_times:
-		sum += r
-	var average = snappedf(sum/len, 0.001)
-	print("average time: ", average)
-	print(self.reaction_times)
-	self.real_square.position = Vector2(-100, -100)
-	self.fake_square.position = Vector2(-100, -100)
-	self.game_state = 2
+#	var len = len(self.reaction_times)
+#	var sum: float
+#	for r in self.reaction_times:
+#		sum += r
+#	var average = snappedf(sum/len, 0.001)
+#	print("average time: ", average)
+#	print(self.reaction_times)
+#	self.real_square.position = Vector2(-100, -100)
+#	self.fake_square.position = Vector2(-100, -100)
+	get_tree().change_scene_to_file("res://game/screen/gameover_screen.tscn")
 
-	$HUD/LblGameOver.show()
-	$HUD/LblGameOver.set_text(str("Game Over \n\n\nHits: ", len, "\nAverage Time: " , average))
 
