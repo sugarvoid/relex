@@ -13,11 +13,12 @@ offset_bottom = 604.0
 color = Color(0.0862745, 0.0901961, 0.101961, 1)
 
 [node name="LblTitle" type="Label" parent="."]
-offset_left = 188.0
-offset_top = 84.0
-offset_right = 396.0
-offset_bottom = 105.0
+offset_left = 145.0
+offset_top = 89.0
+offset_right = 465.0
+offset_bottom = 128.0
 theme_override_fonts/font = ExtResource("2_77xbw")
+theme_override_font_sizes/font_size = 32
 text = "Relex Game"
 horizontal_alignment = 1
 
@@ -34,24 +35,26 @@ horizontal_alignment = 1
 [node name="Main" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 168.0
+offset_top = 216.0
+offset_right = 451.0
+offset_bottom = 468.0
 
 [node name="Play" parent="Main" instance=ExtResource("3_51q1f")]
 layout_mode = 0
-offset_left = 196.0
-offset_top = 257.0
-offset_right = 404.0
-offset_bottom = 278.0
+offset_left = 46.0
+offset_top = 95.0
+offset_right = 254.0
+offset_bottom = 116.0
 text = "Play
 "
 
 [node name="Info" parent="Main" instance=ExtResource("3_51q1f")]
 layout_mode = 0
-offset_left = 196.0
-offset_top = 296.0
-offset_right = 404.0
-offset_bottom = 317.0
+offset_left = 45.0
+offset_top = 130.0
+offset_right = 253.0
+offset_bottom = 151.0
 text = "Info"
 
 [node name="Modes" type="Control" parent="."]
@@ -94,4 +97,17 @@ offset_bottom = 576.0
 text = "Back
 "
 
-[connection signal="was_clicked" from="Back" to="." method="_on_back_was_clicked"]
+[node name="Info" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Text" parent="Info" instance=ExtResource("3_51q1f")]
+offset_left = 83.0
+offset_top = 309.0
+offset_right = 499.0
+offset_bottom = 330.0
+text = "Click on the green squares"
+
+[connection signal="was_clicked" from="Info/Text" to="." method="_on_back_was_clicked"]

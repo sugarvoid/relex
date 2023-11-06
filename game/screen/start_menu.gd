@@ -12,6 +12,7 @@ extends Node2D
 
 func _ready():
 	self.lbl_back.hide()
+	$Info.hide()
 	self._connect_labels()
 	for l in $Main.get_children():
 		l.set_colors(Color("fafdff"), Color("68aed4"))
@@ -20,6 +21,8 @@ func _ready():
 
 func _connect_labels() -> void:
 	self.lbl_play.connect("was_clicked", _start_game)
+	self.lbl_info.connect("was_clicked", _show_info)
+	self.lbl_back.connect("was_clicked", _go_back)
 
 
 func _process(delta):
@@ -29,6 +32,14 @@ func _start_game() -> void:
 	get_tree().change_scene_to_file("res://game/game.tscn")
 
 
-func _on_back_was_clicked():
-	get_tree().change_scene_to_file("res://game/screen/start_menu.tscn")
-	$lbl_back.hide()
+
+func _go_back():
+	$Main.show()
+	#get_tree().change_scene_to_file("res://game/screen/start_menu.tscn")
+	self.lbl_back.hide()
+	$Info.hide()
+
+func _show_info():
+	$Main.hide()
+	lbl_back.show()
+	$Info.show()
