@@ -1,17 +1,19 @@
-# Relex Game
+# Reflex Game
 
-A relex game made in Godot 4.1.3 
+A reflex game made in Godot 4.1.3 
 
 
 ## How To Play
 
 - You have 20 seconds to click the green square as many times as possible.
 
+
 ## Credit
 
 
 ### Font
 - Super Mario Bros. NES by [Patrick Adams (TheWolfBunny64)](https://thewolfbunny64.itch.io/super-mario-bros-nes)
+- Bangers by [Vernon Adams](https://www.1001fonts.com/users/newtypography/) is licensed under [SIL Open Font License (OFL)](http://scripts.sil.org/OFL)
 
 ### Music 
 - 

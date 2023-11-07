@@ -13,13 +13,13 @@ offset_bottom = 604.0
 color = Color(0.0862745, 0.0901961, 0.101961, 1)
 
 [node name="LblTitle" type="Label" parent="."]
-offset_left = 145.0
+offset_left = 117.0
 offset_top = 89.0
-offset_right = 465.0
+offset_right = 469.0
 offset_bottom = 128.0
 theme_override_fonts/font = ExtResource("2_77xbw")
 theme_override_font_sizes/font_size = 32
-text = "Relex Game"
+text = "Reflex Game"
 horizontal_alignment = 1
 
 [node name="LblTitle2" type="Label" parent="."]
@@ -104,6 +104,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Text" parent="Info" instance=ExtResource("3_51q1f")]
+layout_mode = 0
 offset_left = 83.0
 offset_top = 309.0
 offset_right = 499.0
