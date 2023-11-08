@@ -58,12 +58,13 @@ offset_bottom = 151.0
 text = "Info"
 
 [node name="Modes" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 631.0
-offset_top = 205.0
-offset_right = 848.0
-offset_bottom = 365.0
+offset_left = 199.0
+offset_top = 272.0
+offset_right = 416.0
+offset_bottom = 432.0
 metadata/_edit_group_ = true
 
 [node name="Easy" parent="Modes" instance=ExtResource("3_51q1f")]
@@ -84,6 +85,7 @@ offset_bottom = 104.0
 text = "Hard"
 
 [node name="Endless" parent="Modes" instance=ExtResource("3_51q1f")]
+visible = false
 layout_mode = 0
 offset_top = 121.0
 offset_bottom = 142.0
@@ -98,6 +100,7 @@ text = "Back
 "
 
 [node name="Info" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

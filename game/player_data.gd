@@ -1,8 +1,12 @@
 
 extends Node
 
+enum GAME_MODES {
+	EASY, NORMAL, HARD
+}
+
 var reaction_times: Array
-var game_mode: int 
+var game_mode: int = GAME_MODES.NORMAL
 var clicks: int
 var hits: int
 var misses: int
