@@ -92,26 +92,26 @@ offset_bottom = 142.0
 text = "Endless"
 
 [node name="Back" parent="." instance=ExtResource("3_51q1f")]
-offset_left = 383.0
-offset_top = 555.0
-offset_right = 591.0
-offset_bottom = 576.0
+offset_left = 208.0
+offset_top = 506.0
+offset_right = 416.0
+offset_bottom = 527.0
 text = "Back
 "
 
 [node name="Info" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Text" parent="Info" instance=ExtResource("3_51q1f")]
+[node name="Text" type="Label" parent="Info"]
 layout_mode = 0
-offset_left = 83.0
-offset_top = 309.0
-offset_right = 499.0
-offset_bottom = 330.0
+offset_left = 97.0
+offset_top = 311.0
+offset_right = 513.0
+offset_bottom = 350.0
+theme_override_fonts/font = ExtResource("2_77xbw")
+theme_override_font_sizes/font_size = 16
 text = "Click on the green squares"
-
-[connection signal="was_clicked" from="Info/Text" to="." method="_on_back_was_clicked"]
+horizontal_alignment = 1

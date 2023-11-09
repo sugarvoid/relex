@@ -25,7 +25,7 @@ offset_bottom = -27.0
 theme_override_fonts/font = ExtResource("2_4x077")
 text = "ccccc"
 
-[node name="Label2" type="Label" parent="HUD"]
+[node name="LblMode" type="Label" parent="HUD"]
 offset_left = 200.0
 offset_top = 3.0
 offset_right = 376.0

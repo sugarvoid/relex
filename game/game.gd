@@ -6,6 +6,8 @@ extends Node2D
 
 @onready var fish_sound: AudioStreamPlayer = get_node("AudioStreamPlayer")
 
+@onready var lbl_score: Label = get_node("HUD/LblScore")
+
 var real_square: Square
 var fake_square: Square
 
@@ -37,7 +39,7 @@ func _ready():
 
 	self.game_time_left.connect("timeout", gameover)
 	self.rng = RandomNumberGenerator.new()
-	
+	self._set_mode()
 	self._start_game()
 
 
@@ -67,6 +69,19 @@ func _process(delta):
 	if !is_stopped:
 		time_elapsed += delta
 
+func _set_mode() -> void:
+	var _mode = PlayerData.game_mode
+	var _mode_txt: String
+	
+	match _mode:
+		PlayerData.GAME_MODES.EASY:
+			_mode_txt = "Easy Mode"
+		PlayerData.GAME_MODES.NORMAL:
+			_mode_txt = "Normal Mode"
+		PlayerData.GAME_MODES.HARD:
+			_mode_txt = "Hard Mode"
+	
+	$HUD/LblMode.text = _mode_txt
 
 func move_square(sq: Square, time: float) -> void:
 	var starting_pos = sq.position
@@ -77,14 +92,17 @@ func move_square(sq: Square, time: float) -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(sq, "position", end_pos, time)
 	sq.is_moving = true
-	sq.hide()
-	if tween != null:
+	
+	if PlayerData.game_mode == PlayerData.GAME_MODES.NORMAL:
+		sq.hide()
+	
+	if sq != null:
 		tween.call_deferred("tween_callback", sq.reset)
 
 
 func update_score(num: int) -> void:
 	self.player_score += num
-	$HUD/LblScore.set_text(str("Score:", player_score))
+	self.lbl_score.set_text(str("Score:", player_score))
 
 
 func get_position_in_area() -> Vector2:

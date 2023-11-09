@@ -30,4 +30,3 @@ func _on_gui_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index==1:
 		emit_signal("was_clicked")
 		_on_mouse_exited()
-		print("label clicked")
