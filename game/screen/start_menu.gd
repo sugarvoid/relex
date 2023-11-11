@@ -14,6 +14,9 @@ extends Node2D
 
 
 func _ready():
+	
+	self.lbl_hard.disable()
+	
 	self.lbl_back.hide()
 	$Info.hide()
 	self._connect_labels()
