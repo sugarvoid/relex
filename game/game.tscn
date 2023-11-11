@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmdjh0n40h6yo"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1"]
-[ext_resource type="AudioStream" uid="uid://bni76tul1j5fr" path="res://game/fish 6.wav" id="2"]
-[ext_resource type="FontFile" uid="uid://qsv1edqw6iir" path="res://game/Super Mario Bros. NES.ttf" id="2_4x077"]
+[ext_resource type="FontFile" uid="uid://qsv1edqw6iir" path="res://game/asset/font/Super Mario Bros. NES.ttf" id="2_4gxt1"]
+[ext_resource type="AudioStream" uid="uid://bni76tul1j5fr" path="res://game/asset/sound/fish 6.wav" id="3_h0pxo"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1")
@@ -14,7 +14,7 @@ offset_left = 8.0
 offset_top = -50.0
 offset_right = 120.0
 offset_bottom = -29.0
-theme_override_fonts/font = ExtResource("2_4x077")
+theme_override_fonts/font = ExtResource("2_4gxt1")
 text = "Score: "
 
 [node name="Label" type="Label" parent="HUD"]
@@ -22,7 +22,7 @@ offset_left = 408.0
 offset_top = -48.0
 offset_right = 488.0
 offset_bottom = -27.0
-theme_override_fonts/font = ExtResource("2_4x077")
+theme_override_fonts/font = ExtResource("2_4gxt1")
 text = "ccccc"
 
 [node name="LblMode" type="Label" parent="HUD"]
@@ -30,7 +30,7 @@ offset_left = 200.0
 offset_top = 3.0
 offset_right = 376.0
 offset_bottom = 24.0
-theme_override_fonts/font = ExtResource("2_4x077")
+theme_override_fonts/font = ExtResource("2_4gxt1")
 text = "Normal Mode"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -45,6 +45,6 @@ color = Color(0.0862745, 0.0901961, 0.101961, 1)
 [node name="Timer" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2")
+stream = ExtResource("3_h0pxo")
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]

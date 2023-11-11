@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bfd0034ghvyxt"]
 
-[ext_resource type="FontFile" uid="uid://qsv1edqw6iir" path="res://game/Super Mario Bros. NES.ttf" id="1_6nxun"]
 [ext_resource type="Script" path="res://game/screen/gameover_screen.gd" id="1_qdbw8"]
-[ext_resource type="PackedScene" uid="uid://bi40a5anqsmiw" path="res://game/clickable_label.tscn" id="3_hamve"]
+[ext_resource type="FontFile" uid="uid://qsv1edqw6iir" path="res://game/asset/font/Super Mario Bros. NES.ttf" id="2_iilsv"]
+[ext_resource type="PackedScene" uid="uid://bi40a5anqsmiw" path="res://game/hud/clickable_label/clickable_label.tscn" id="3_hamve"]
 
 [node name="GameoverScreen" type="Node2D"]
 script = ExtResource("1_qdbw8")
@@ -17,7 +17,7 @@ offset_left = 137.0
 offset_top = 309.0
 offset_right = 472.0
 offset_bottom = 403.0
-theme_override_fonts/font = ExtResource("1_6nxun")
+theme_override_fonts/font = ExtResource("2_iilsv")
 theme_override_font_sizes/font_size = 18
 text = "line 1
 line 2
@@ -30,7 +30,7 @@ offset_left = 107.0
 offset_top = 198.0
 offset_right = 494.0
 offset_bottom = 228.0
-theme_override_fonts/font = ExtResource("1_6nxun")
+theme_override_fonts/font = ExtResource("2_iilsv")
 theme_override_font_sizes/font_size = 24
 text = "Game Over"
 horizontal_alignment = 1

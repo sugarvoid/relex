@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxqvlakx6wlnx"
-path="res://.godot/imported/cover.png-7415a2400197f69905d305dff229e3ab.ctex"
+uid="uid://ctpl8splfeu5s"
+path="res://.godot/imported/trail.png-2067621d745d35231500049b8a25ba50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://cover.png"
-dest_files=["res://.godot/imported/cover.png-7415a2400197f69905d305dff229e3ab.ctex"]
+source_file="res://game/object/square/trail.png"
+dest_files=["res://.godot/imported/trail.png-2067621d745d35231500049b8a25ba50.ctex"]
 
 [params]
 

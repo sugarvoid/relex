@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bni76tul1j5fr"
-path="res://.godot/imported/fish 6.wav-9beb8593d5bbadb6540169ec62416cce.sample"
+path="res://.godot/imported/fish 6.wav-275e92f2adef6580be3c9aa7fc7eb9f9.sample"
 
 [deps]
 
-source_file="res://game/fish 6.wav"
-dest_files=["res://.godot/imported/fish 6.wav-9beb8593d5bbadb6540169ec62416cce.sample"]
+source_file="res://game/asset/sound/fish 6.wav"
+dest_files=["res://.godot/imported/fish 6.wav-275e92f2adef6580be3c9aa7fc7eb9f9.sample"]
 
 [params]
 

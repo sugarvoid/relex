@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctpl8splfeu5s"
-path="res://.godot/imported/trail.png-ede5b6d1d8b8509d2643172ead055ecd.ctex"
+uid="uid://bfrmr2gd00pb6"
+path="res://.godot/imported/cover.svg-130eb3a36109dd0d064658ffe9a6b9e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/trail.png"
-dest_files=["res://.godot/imported/trail.png-ede5b6d1d8b8509d2643172ead055ecd.ctex"]
+source_file="res://press/cover.svg"
+dest_files=["res://.godot/imported/cover.svg-130eb3a36109dd0d064658ffe9a6b9e3.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

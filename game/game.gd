@@ -8,8 +8,8 @@ extends Node2D
 
 @onready var lbl_score: Label = get_node("HUD/LblScore")
 
-var real_square: Square
-var fake_square: Square
+var real_square : SquareObj
+var fake_square : SquareObj
 
 const CENTER_POS = Vector2(300.0,300.0)
 const SPAWN_AREA = Vector2(450,450)
@@ -44,13 +44,13 @@ func _ready():
 
 
 func _start_game():
-	self.real_square = preload("res://game/square.tscn").instantiate()
+	self.real_square = preload("res://game/object/square/square.tscn").instantiate()
 	self.add_child(self.real_square)
 	self.real_square.name = "RealSquare"
 	self.real_square.connect("was_clicked", real_clicked)
 	self.real_square.set_color(Color("10d275"))
 
-	self.fake_square = preload("res://game/square.tscn").instantiate()
+	self.fake_square = preload("res://game/object/square/square.tscn").instantiate()
 	self.add_child(self.fake_square)
 	self.fake_square.name = "FakeSquare"
 	self.fake_square.connect("was_clicked", fake_clicked)
@@ -83,7 +83,7 @@ func _set_mode() -> void:
 	
 	$HUD/LblMode.text = _mode_txt
 
-func move_square(sq: Square, time: float) -> void:
+func move_square(sq: SquareObj, time: float) -> void:
 	var starting_pos = sq.position
 	var end_pos = self.get_position_in_area()
 

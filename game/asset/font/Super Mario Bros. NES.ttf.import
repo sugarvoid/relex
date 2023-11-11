@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://qsv1edqw6iir"
-path="res://.godot/imported/Super Mario Bros. NES.ttf-ac03eea871b6a3369daf2f7da5a54b69.fontdata"
+path="res://.godot/imported/Super Mario Bros. NES.ttf-c16dc0be55154d6f201895e8e02c1fec.fontdata"
 
 [deps]
 
-source_file="res://game/Super Mario Bros. NES.ttf"
-dest_files=["res://.godot/imported/Super Mario Bros. NES.ttf-ac03eea871b6a3369daf2f7da5a54b69.fontdata"]
+source_file="res://game/asset/font/Super Mario Bros. NES.ttf"
+dest_files=["res://.godot/imported/Super Mario Bros. NES.ttf-c16dc0be55154d6f201895e8e02c1fec.fontdata"]
 
 [params]
 
