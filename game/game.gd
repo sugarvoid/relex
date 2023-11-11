@@ -8,8 +8,8 @@ extends Node2D
 
 @onready var lbl_score: Label = get_node("HUD/LblScore")
 
-var real_square : SquareObj
-var fake_square : SquareObj
+var real_square : Square
+var fake_square : Square
 
 const CENTER_POS = Vector2(300.0,300.0)
 const SPAWN_AREA = Vector2(450,450)
@@ -83,7 +83,7 @@ func _set_mode() -> void:
 	
 	$HUD/LblMode.text = _mode_txt
 
-func move_square(sq: SquareObj, time: float) -> void:
+func move_square(sq: Square, time: float) -> void:
 	var starting_pos = sq.position
 	var end_pos = self.get_position_in_area()
 

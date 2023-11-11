@@ -1,4 +1,4 @@
-class_name SquareObj
+class_name Square
 extends Node2D
 
 signal was_clicked
