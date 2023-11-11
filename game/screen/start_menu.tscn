@@ -29,7 +29,7 @@ offset_right = 173.0
 offset_bottom = 599.0
 scale = Vector2(0.7, 0.7)
 theme_override_fonts/font = ExtResource("2_air62")
-text = "v1.0"
+text = "v1.1"
 horizontal_alignment = 1
 
 [node name="Main" type="Control" parent="."]
