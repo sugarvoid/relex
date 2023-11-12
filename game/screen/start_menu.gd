@@ -8,15 +8,11 @@ extends Node2D
 @onready var lbl_hard = $Modes/Hard
 @onready var lbl_endless = $Modes/Endless
 
-
 @onready var lbl_back = $Back
 
 
 
 func _ready():
-	
-	self.lbl_hard.disable()
-	
 	self.lbl_back.hide()
 	$Info.hide()
 	self._connect_labels()
@@ -33,7 +29,6 @@ func _connect_labels() -> void:
 	self.lbl_easy.connect("was_clicked", _set_easy)
 	self.lbl_normal.connect("was_clicked", _set_normal)
 	self.lbl_hard.connect("was_clicked", _set_hard)
-	
 	
 
 
@@ -57,7 +52,6 @@ func _set_hard() -> void:
 
 func _go_back():
 	$Main.show()
-	#get_tree().change_scene_to_file("res://game/screen/start_menu.tscn")
 	self.lbl_back.hide()
 	$Info.hide()
 	$Modes.hide()

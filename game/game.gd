@@ -8,6 +8,9 @@ extends Node2D
 
 @onready var lbl_score: Label = get_node("HUD/LblScore")
 
+
+var p_fake_square = preload("res://game/object/square/square.tscn")
+
 var real_square : Square
 var fake_square : Square
 
@@ -27,8 +30,7 @@ var player_score = 0
 var time_elapsed: float = 0.0
 var is_stopped := false
 
-
-
+var move_speed: float
 
 
 func _ready():
@@ -39,9 +41,18 @@ func _ready():
 
 	self.game_time_left.connect("timeout", gameover)
 	self.rng = RandomNumberGenerator.new()
-	self._set_mode()
+	self._set_mode_label()
 	self._start_game()
 
+
+func get_fake_square() -> Square:
+	var new_square = p_fake_square.instantiate()
+	self.add_child(new_square)
+	new_square.name = "FakeSquare"
+	new_square.connect("was_clicked", fake_clicked)
+	new_square.set_color(Color("10d275"))
+	new_square.move_off_screen()
+	return new_square
 
 func _start_game():
 	self.real_square = preload("res://game/object/square/square.tscn").instantiate()
@@ -50,13 +61,19 @@ func _start_game():
 	self.real_square.connect("was_clicked", real_clicked)
 	self.real_square.set_color(Color("10d275"))
 
-	self.fake_square = preload("res://game/object/square/square.tscn").instantiate()
-	self.add_child(self.fake_square)
-	self.fake_square.name = "FakeSquare"
-	self.fake_square.connect("was_clicked", fake_clicked)
-	self.fake_square.set_color(Color("7f0622"))
-	self.fake_square.position = Vector2(-100,-100)
+	self.fake_square = get_fake_square()
+#	self.fake_square = p_fake_square.instantiate()
+#	self.add_child(self.fake_square)
+#	self.fake_square.name = "FakeSquare"
+#	self.fake_square.connect("was_clicked", fake_clicked)
+#	self.fake_square.set_color(Color("10d275"))
+#	self.fake_square.move_off_screen()
 
+	match PlayerData.game_mode:
+		PlayerData.GAME_MODES.EASY, PlayerData.GAME_MODES.NORMAL:
+			move_speed = 0.2
+		PlayerData.GAME_MODES.HARD:
+			move_speed = 0.5
 
 	self.move_square(self.real_square, 0.0)
 	self.game_time_left.start(GAME_TIME)
@@ -69,7 +86,7 @@ func _process(delta):
 	if !is_stopped:
 		time_elapsed += delta
 
-func _set_mode() -> void:
+func _set_mode_label() -> void:
 	var _mode = PlayerData.game_mode
 	var _mode_txt: String
 	
@@ -84,12 +101,12 @@ func _set_mode() -> void:
 	$HUD/LblMode.text = _mode_txt
 
 func move_square(sq: Square, time: float) -> void:
+
 	var starting_pos = sq.position
 	var end_pos = self.get_position_in_area()
-
-	print("Traveled: ", roundf(starting_pos.distance_to(end_pos)), " units")
-
-	var tween = get_tree().create_tween()
+	var tween = create_tween()
+	
+	
 	tween.tween_property(sq, "position", end_pos, time)
 	sq.is_moving = true
 	
@@ -97,7 +114,10 @@ func move_square(sq: Square, time: float) -> void:
 		sq.hide()
 	
 	if sq != null:
-		tween.call_deferred("tween_callback", sq.reset)
+		tween.tween_callback(sq.reset).set_delay(0.2)
+		#tween.call_deferred("tween_callback", sq.reset)
+		
+	##print("Traveled: ", roundf(starting_pos.distance_to(end_pos)), " units")
 
 
 func update_score(num: int) -> void:
@@ -126,14 +146,35 @@ func stopwatch_start() -> void:
 	is_stopped = false
 
 func real_clicked() -> void:
+	
 	print('real square clicked')
+	self.update_score(1)
 	self.stopwatch_reset()
 	self.fish_sound.play()
-	self.move_square(self.real_square, 0.2)
-	self.update_score(1)
+	self.move_square(self.real_square, move_speed)
+	
+	
+	if PlayerData.game_mode == PlayerData.GAME_MODES.HARD:
+		self.fake_square = get_fake_square()
+		#self.fake_square.reset_alpha()
+		self.fake_square.position = self.real_square.position
+		self.move_square(self.fake_square, move_speed)
+		
+		await get_tree().create_timer(0.5).timeout
+		self.fake_square.lower_alpha(move_speed+0.2)
+	
+	
+
+	
+	
+	
+	
+	
+	
 
 func fake_clicked() -> void:
 	print('fake square clicked')
+	PlayerData.misses += 1
 
 func gameover() -> void:
 	get_tree().change_scene_to_file("res://game/screen/gameover_screen.tscn")
