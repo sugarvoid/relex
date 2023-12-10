@@ -10,6 +10,9 @@ extends Node2D
 
 @onready var lbl_back = $Back
 
+const DEFAULT_COLOR: Color = Color("fafdff")
+const HOVER_COLOR: Color = Color("68aed4")
+
 
 
 func _ready():
@@ -17,9 +20,10 @@ func _ready():
 	$Info.hide()
 	self._connect_labels()
 	for l in $Main.get_children():
-		l.set_colors(Color("fafdff"), Color("68aed4"))
+		l.set_colors(DEFAULT_COLOR, HOVER_COLOR)
 	for l in $Modes.get_children():
-		l.set_colors(Color("fafdff"), Color("68aed4"))
+		l.set_colors(DEFAULT_COLOR, HOVER_COLOR)
+	lbl_back.set_colors(DEFAULT_COLOR, HOVER_COLOR)
 
 func _connect_labels() -> void:
 	self.lbl_play.connect("was_clicked", _show_modes)
@@ -57,11 +61,21 @@ func _go_back():
 	$Modes.hide()
 
 func _show_info():
-	$Main.hide()
-	lbl_back.show()
-	$Info.show()
+	#$Main.hide()
+	#lbl_back.show()
+	#$Info.show()
+	_hide_nodes([$Main])
+	_show_nodes([lbl_back, $Info])
 
 func _show_modes():
-	$Main.hide()
-	lbl_back.show()
-	$Modes.show()
+	_hide_nodes([$Main])
+	_show_nodes([$Modes, lbl_back])
+
+
+func _show_nodes(nodes: Array[Node]) -> void:
+	for n in nodes:
+		n.show()
+
+func _hide_nodes(nodes: Array[Node]) -> void:
+	for n in nodes:
+		n.hide()
