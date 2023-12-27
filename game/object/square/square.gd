@@ -3,7 +3,6 @@ extends Node2D
 
 signal was_clicked
 
-
 var is_moving: bool = false
 var height = 64
 var width = 64
@@ -30,7 +29,6 @@ func lower_alpha(duration: float) -> void:
 	
 	#tween_a.call_deferred("tween_callback", self.die)
 	
-	
 
 func die():
 	self.queue_free()
@@ -42,14 +40,11 @@ func _on_hitbox_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index==1:
 		PlayerData.player_clicked()
 		emit_signal("was_clicked")
-		print("click")
-
 
 func _on_color_rect_gui_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index==1:
 		PlayerData.player_clicked()
 		emit_signal("was_clicked")
-		print("click")
 
 func move_off_screen() -> void:
 	self.position = Vector2(-100,-100)
