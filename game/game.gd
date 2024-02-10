@@ -110,6 +110,15 @@ func update_score(num: int) -> void:
 	self.player_score += num
 	self.lbl_score.set_text(str("Score:", player_score))
 
+func get_two_points() -> Array[Vector2]:
+	var pos1: Vector2 = get_position_in_area()
+	var pos2: Vector2 = get_position_in_area()
+	
+	while pos1.direction_to(pos2) <= Vector2(60,60):
+		pos2 = get_position_in_area()
+	
+	return[pos1, pos2]
+
 func get_position_in_area() -> Vector2:
 	var position_in_area: Vector2
 	position_in_area.x = (randi() % int(SPAWN_AREA.x)) - (SPAWN_AREA.x/2) + CENTER_POS.x
