@@ -51,6 +51,7 @@ func _start_game():
 	self.real_square = preload("res://game/object/square/square.tscn").instantiate()
 	self.add_child(self.real_square)
 	self.real_square.name = "RealSquare"
+	self.real_square.is_real = true
 	self.real_square.connect("was_clicked", real_clicked)
 	self.real_square.set_color(Color("10d275"))
 	self.fake_square = get_fake_square()
