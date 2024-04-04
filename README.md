@@ -1,6 +1,8 @@
 # Reflex Game
 
 A reflex game made in Godot 4.1.3 
+<br>
+![](https://github.com/sugarvoid/reflex-game/blob/1.2.1/reflex_game.gif)
 
 
 ## How To Play
@@ -16,7 +18,7 @@ A reflex game made in Godot 4.1.3
 - Bangers by [Vernon Adams](https://www.1001fonts.com/users/newtypography/) is licensed under [SIL Open Font License (OFL)](http://scripts.sil.org/OFL)
 
 ### Music 
-- 
+- None
 
 ### Sound FX
 - Fish 6 by [FilmCow](https://filmcow.itch.io/)
